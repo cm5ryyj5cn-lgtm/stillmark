@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f5f1">
+    <title>Stillmark — Photo watermark studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Playfair+Display:wght@500;600&family=Roboto+Slab:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="wordmark" href="#" aria-label="Stillmark home">
+          <span class="wordmark-icon" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+          <span>stillmark</span>
+        </a>
+        <div class="topbar-center"><span class="status-dot"></span> YOUR PRIVATE WORKSPACE</div>
+        <div class="topbar-right">
+          <span class="privacy-note"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8 2.5 4v3.5c0 3.2 2.4 5.6 5.5 6.7 3.1-1.1 5.5-3.5 5.5-6.7V4L8 1.8Z"/><path d="m5.7 7.8 1.5 1.5 3.2-3.2"/></svg> Files stay on your device</span>
+          <span class="avatar" aria-hidden="true">S</span>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="sidebar" aria-label="Watermark settings">
+          <div class="sidebar-heading">
+            <div>
+              <p class="eyebrow">THE DARKROOM</p>
+              <h1>Make it yours.</h1>
+              <p class="sidebar-intro">A quiet signature for the work you share.</p>
+            </div>
+            <span class="step-badge">01 <span>/ 02</span></span>
+          </div>
+
+          <button class="upload-card" id="upload-card" type="button" aria-controls="photo-input">
+            <span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M5 14v5h14v-5"/></svg></span>
+            <span class="upload-copy"><strong id="upload-title">Choose photos</strong><span id="upload-subtitle">Select one or more · JPG, PNG, WEBP</span></span>
+            <svg class="upload-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg>
+          </button>
+          <input class="file-input" id="photo-input" type="file" accept="image/*,.heic,.heif" aria-label="Choose one or more photos" multiple tabindex="-1" aria-hidden="true">
+          <p class="upload-error" id="upload-error" role="alert" hidden></p>
+
+          <div class="section-divider"><span>YOUR SIGNATURE</span><span class="divider-line"></span></div>
+
+          <label class="field-label" for="watermark-text">Watermark text</label>
+          <div class="text-input-wrap">
+            <input id="watermark-text" type="text" maxlength="80" value="© STUDIO STILL" autocomplete="off" aria-label="Watermark text">
+            <span class="text-input-icon" aria-hidden="true">T</span>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label" for="font-family">Typeface</label>
+            <label class="field-label color-label" for="watermark-color">Ink</label>
+          </div>
+          <div class="field-row font-color-row">
+            <select id="font-family" aria-label="Typeface">
+              <optgroup label="Sans serif">
+                <option value="&quot;DM Sans&quot;, sans-serif">DM Sans</option>
+                <option value="Montserrat, sans-serif">Montserrat</option>
+                <option value="Oswald, sans-serif">Oswald</option>
+                <option value="&quot;Space Grotesk&quot;, sans-serif">Space Grotesk</option>
+              </optgroup>
+              <optgroup label="Serif">
+                <option value="&quot;Playfair Display&quot;, serif">Playfair Display</option>
+                <option value="&quot;Cormorant Garamond&quot;, serif">Cormorant Garamond</option>
+                <option value="Lora, serif">Lora</option>
+                <option value="&quot;Roboto Slab&quot;, serif">Roboto Slab</option>
+              </optgroup>
+              <optgroup label="Handwritten">
+                <option value="Caveat, cursive">Caveat</option>
+                <option value="&quot;Dancing Script&quot;, cursive">Dancing Script</option>
+              </optgroup>
+              <optgroup label="Monospace">
+                <option value="&quot;DM Mono&quot;, monospace">DM Mono</option>
+              </optgroup>
+            </select>
+            <label class="color-picker" for="watermark-color" aria-label="Watermark color">
+              <input id="watermark-color" type="color" value="#ffffff">
+              <span id="color-value">#FFFFFF</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+            </label>
+          </div>
+
+          <div class="section-divider divider-spaced"><span>FINE TUNE</span><span class="divider-line"></span></div>
+
+          <div class="range-heading">
+            <label class="field-label" for="watermark-size">Size</label>
+            <output class="range-value" id="size-value" for="watermark-size">5.0%</output>
+          </div>
+          <input class="range-input" id="watermark-size" type="range" min="2" max="12" step="0.5" value="5">
+
+          <div class="range-heading range-next">
+            <label class="field-label" for="watermark-opacity">Opacity</label>
+            <output class="range-value" id="opacity-value" for="watermark-opacity">72%</output>
+          </div>
+          <input class="range-input" id="watermark-opacity" type="range" min="10" max="100" value="72">
+
+          <div class="range-heading range-next">
+            <label class="field-label" for="watermark-rotation">Rotation</label>
+            <output class="range-value" id="rotation-value" for="watermark-rotation">0°</output>
+          </div>
+          <input class="range-input" id="watermark-rotation" type="range" min="-45" max="45" value="0">
+
+          <div class="position-heading">
+            <span class="field-label">Position</span>
+            <span class="position-hint">Add several · drag each one</span>
+          </div>
+          <div class="position-grid" role="group" aria-label="Watermark positions; select one or more">
+            <button type="button" data-position="top-left" aria-label="Top left"></button>
+            <button type="button" data-position="top-center" aria-label="Top center"></button>
+            <button type="button" data-position="top-right" aria-label="Top right"></button>
+            <button type="button" data-position="middle-left" aria-label="Middle left"></button>
+            <button type="button" data-position="center" aria-label="Center"></button>
+            <button type="button" data-position="middle-right" aria-label="Middle right"></button>
+            <button type="button" data-position="bottom-left" aria-label="Bottom left"></button>
+            <button type="button" data-position="bottom-center" aria-label="Bottom center"></button>
+            <button type="button" data-position="bottom-right" aria-label="Bottom right" class="is-selected"></button>
+          </div>
+
+          <div class="watermarks-heading">
+            <span class="field-label">Your watermarks</span>
+            <span class="position-hint">Select one to edit</span>
+          </div>
+          <div class="watermark-list" id="watermark-list" role="list" aria-label="Watermarks"></div>
+
+          <label class="tile-toggle">
+            <span><strong>Repeat pattern</strong><small>Tile the selected watermark</small></span>
+            <input id="repeat-pattern" type="checkbox">
+            <span class="toggle-track" aria-hidden="true"></span>
+          </label>
+          <p class="tile-note" id="tile-note" hidden>Drag the pattern on the photo to reposition the repeated watermark.</p>
+
+          <section class="photo-queue-panel" id="photo-queue-panel" aria-label="Selected photos" hidden>
+            <div class="photo-queue-heading"><span>SELECTED PHOTOS</span><span id="photo-queue-count"></span></div>
+            <div class="photo-queue" id="photo-queue" role="list" aria-label="Selected photos"></div>
+          </section>
+
+          <div class="sidebar-bottom">
+            <div class="export-heading"><span class="export-mark" aria-hidden="true">↗</span><div><strong>Save your work</strong><span>Choose where to save your watermarked photo</span></div></div>
+            <button class="save-export" id="save-export" type="button" disabled>Save as…</button>
+            <p class="export-status" id="export-status" role="status" aria-live="polite">Choose a photo to get started.</p>
+          </div>
+        </aside>
+
+        <section class="preview-area" aria-label="Photo preview">
+          <div class="preview-topline">
+            <div class="breadcrumb"><span>WORKSPACE</span><span class="breadcrumb-slash">/</span><strong id="filename-label">UNTITLED PHOTO</strong></div>
+            <div class="preview-controls">
+              <span class="preview-state"><span></span> LIVE PREVIEW</span>
+              <span class="control-separator"></span>
+              <button class="zoom-button" id="zoom-button" type="button" aria-label="Toggle preview fit">FIT <span>⌕</span></button>
+            </div>
+          </div>
+          <div class="photo-navigation" id="photo-navigation" aria-label="Photo queue navigation" hidden>
+            <button type="button" id="photo-add-more" aria-label="Add more photos">+</button>
+            <button type="button" id="photo-previous" aria-label="Previous photo">←</button>
+            <select id="photo-switcher" aria-label="Select photo"></select>
+            <button type="button" id="photo-next" aria-label="Next photo">→</button>
+            <button type="button" id="photo-remove-current" aria-label="Remove current photo">×</button>
+          </div>
+
+          <div class="preview-stage" id="preview-stage">
+            <div class="empty-state" id="empty-state">
+              <div class="empty-art" aria-hidden="true">
+                <div class="art-photo"><span class="art-sun"></span><span class="art-mountain art-mountain-back"></span><span class="art-mountain art-mountain-front"></span><span class="art-grain"></span></div>
+                <span class="art-plus">+</span>
+                <span class="art-sparkle">✳</span>
+              </div>
+              <p class="eyebrow">A LITTLE ROOM TO CREATE</p>
+              <h2>Your next favorite photo,<br>with your name on it.</h2>
+              <p>Choose an image to start shaping your signature.<br>Your originals never leave this browser.</p>
+              <button class="empty-upload" id="empty-upload" type="button" aria-controls="photo-input">Select a photo <span>↗</span></button>
+              <div class="drop-hint">JPG <span>·</span> PNG <span>·</span> WEBP <span>·</span> up to your browser's limit</div>
+            </div>
+            <canvas id="preview-canvas" aria-label="Watermarked photo preview" hidden></canvas>
+            <div class="canvas-hint" id="canvas-hint" hidden><span class="hint-cursor" aria-hidden="true">✥</span> DRAG EACH SIGNATURE TO REPOSITION</div>
+            <div class="stage-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="drop-overlay" id="drop-overlay" aria-hidden="true"><span>Drop your photo to begin</span></div>
+          </div>
+          <div class="preview-footer">
+            <span id="image-dimensions">NO IMAGE SELECTED</span>
+            <span><span class="footer-dot"></span> PREVIEW UPDATES IN REAL TIME</span>
+            <span class="footer-tip">TIP: DRAG EACH SIGNATURE INDEPENDENTLY</span>
+          </div>
+        </section>
+      </main>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </body>
+</html>
